@@ -11,3 +11,7 @@ It requires libraries: SciencesPo and dplyr.
 * Data: a dataset cointaining Name of the candidates, Coalition, District, Party and Votes. Preferred labels: Candidato, Pacto, Partido, votacion. This data is for all districts.
 * District: number of the district.
 * Seats: seats of the district.
+
+### Output.
+
+* A data frame containing the elected members of the district.
