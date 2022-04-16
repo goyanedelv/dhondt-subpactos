@@ -1,19 +1,16 @@
 
 dhondt_Chile <- function(data_all, distrito, asientos_p){
 
-#library(SciencesPo)
-#library(dplyr)
+### Coalition iteration
+data_primario<- subset(data_all,Distrito==distrito)
 
-###Iteracion a Coalicion
-data_primario<- subset(data_all,Distrito==distrito) #me quedo solo con el D=8
+data_agg <- aggregate(x = data_primario$votacion, by = list(data_primario$Pacto), FUN = sum)
+colnames(data_agg)=c("Pacto","votacion")
 
-data_agg <- aggregate(x = data_primario$votacion, by = list(data_primario$Pacto), FUN = sum)#colapso por pacto
-colnames(data_agg)=c("Pacto","votacion") #pongo nombres correctos al output de aggregate
+primario<-dHondt(parties=data_agg$Pacto, votes=data_agg$votacion, n_seats=asientos_p) # dHondt coalition level
+primario_df <- data.frame(Party=primario$Party,Seats=primario$Seats)
 
-primario<-dHondt(parties=data_agg$Pacto, votes=data_agg$votacion, seats=asientos_p)#dHondt Coaliciones
-primario_df <- data.frame(Party=primario$Party,Seats=primario$Seats)#convierto a data frame
-
-###Iteracion a Subpacto
+### Subpact iteration
 set_Coalicion<-primario_df$Party
 lista_dhondt_output <-list()
 t<-1
@@ -26,7 +23,7 @@ for (x in 1:length(set_Coalicion)){
 		colnames(data_agg2)=c("Partido","votacion")
 
 		secundario<-dHondt(parties=data_agg2$Partido, votes=data_agg2$votacion,
- 					seats=primario_df$Seats[primario_df$Party==set_Coalicion[x]])
+ 					n_seats=primario_df$Seats[primario_df$Party==set_Coalicion[x]])
 		secundario_df <- data.frame(Party=secundario$Party,Seats=secundario$Seats)
 		secundario_df <- subset(secundario_df,secundario_df$Seats>0)
 			
