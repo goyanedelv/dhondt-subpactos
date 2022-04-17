@@ -1,5 +1,5 @@
 
-dhondt_Chile <- function(data_all, distrito, asientos_p) {
+dhondt_chile <- function(data_all, distrito, asientos_p) {
 
 ### Coalition iteration
 data_primario <- subset(data_all, Distrito == distrito)
@@ -46,7 +46,6 @@ if (primario_df$Seats[primario_df$Party == set_Coalicion[x]] > 0) {
   }
  }
 }
-
 
 distribucion_partidos <- plyr::ldply(lista_dhondt_output, data.frame)
 
