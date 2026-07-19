@@ -7,7 +7,7 @@ Also implemented `dhondt_Chile_general` which is a version "blind" to parties (i
 
 ### Requirements
 
-It requires libraries: `electoral` and `dplyr`.
+It requires libraries: `electoral` and `plyr`.
 
 ### Inputs (of dHondt_Chile)
 
